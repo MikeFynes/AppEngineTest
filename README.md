@@ -1,6 +1,8 @@
 endpoints-skeleton
 ==================
 
+Attempted Build 30/05/2015
+
 A skeleton application for Google Cloud Endpoints in Java.
 
 ## Products
