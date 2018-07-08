@@ -12,13 +12,18 @@
     mavenCentral()
   }
   dependencies {
-    classpath 'com.google.cloud.tools:appengine-gradle-plugin:+'    // latest App Engine Gradle tasks
+    classpath 'com.google.cloud.tools:appengine-gradle-plugin:+' // latest App Engine Gradle tasks
+      // Endpoints Frameworks Gradle plugin
+    classpath 'com.google.cloud.tools:endpoints-framework-gradle-plugin:+'
   }
 }
 
 apply plugin: 'java'                              // standard Java tasks
 apply plugin: 'war'                               // standard Web Archive plugin
 apply plugin: 'com.google.cloud.tools.appengine'  // App Engine tasks
+apply plugin: 'com.google.cloud.tools.appengine'
+apply plugin: 'com.google.cloud.tools.endpoints-framework-server'
+
 
 repositories {   // repositories for Jar's you access in your code
   maven {
@@ -32,7 +37,10 @@ repositories {   // repositories for Jar's you access in your code
 
 dependencies {
   compile 'com.google.appengine:appengine-api-1.0-sdk:+'  // Latest App Engine Api's
-  providedCompile 'javax.servlet:javax.servlet-api:3.1.0'
+  compile group: 'com.google.endpoints', name: 'endpoints-framework-tools', version: '2.1.0'
+  compile group: 'com.googlecode.objectify', name: 'objectify', version: '6.0'
+
+    providedCompile 'javax.servlet:javax.servlet-api:3.1.0'
 
   compile 'jstl:jstl:1.2'
 
@@ -54,8 +62,14 @@ appengineStage.dependsOn test
 
 appengine {  // App Engine tasks configuration
   deploy {   // deploy configuration
-
+      version = "GCLOUD_CONFIG"
+      project = "GCLOUD_CONFIG"
   }
+}
+
+endpointsServer {
+    // Endpoints Framework Plugin server-side configuration
+    hostname = "cloudlearner-203210.appspot.com"
 }
 
 test {
